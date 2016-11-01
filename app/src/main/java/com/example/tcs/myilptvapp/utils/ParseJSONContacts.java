@@ -44,7 +44,6 @@ public class ParseJSONContacts {
                     String title = it.next();
                     contact.setName(title);
                     contact.setNumber(jobj.getString(title));
-                    Log.d(TAG, contact.toString());
                     contacts.add(contact);
                 }
             }

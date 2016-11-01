@@ -48,7 +48,7 @@
             android:src="@drawable/action_search_icon"
             android:clickable="true"
             android:focusable="true"
-            android:focusableInTouchMode="true"/>
+            android:focusableInTouchMode="true" />
 
     </LinearLayout>
 
@@ -56,6 +56,6 @@
         android:id="@+id/schedule_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:descendantFocusability="afterDescendants"/>
+        android:descendantFocusability="afterDescendants" />
 
 </LinearLayout>

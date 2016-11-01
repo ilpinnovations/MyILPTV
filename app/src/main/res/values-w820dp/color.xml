@@ -39,6 +39,9 @@
 
     <color name="icon_color">#005A53</color>
 
-    <color name="spinner_color">#303030</color>
+    <!--<color name="spinner_color">#303030</color>-->
+    <color name="spinner_color">#D64214</color>
+
+    <color name="highlighting_color">#009688</color>
 
 </resources>
