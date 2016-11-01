@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">My ILP</string>
+    <string name="title_activity_main">MainActivity</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="spinner_prompt">Choose ILP centre</string>
+    <string-array name="ilp_centres">
+        <item>Trivandrum</item>
+        <item>Chennai</item>
+        <item>Guwahati</item>
+        <item>Ahmedabad</item>
+        <item>Hyderabad</item>
+    </string-array>
+</resources>

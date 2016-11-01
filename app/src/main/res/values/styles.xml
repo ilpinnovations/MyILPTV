@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="AppTheme" parent="@style/Theme.Leanback"></style>
+
+    <!--<style course="editTextTheme">-->
+        <!--<item course="colorControlNormal">#c5c5c5</item>-->
+        <!--<item course="colorControlActivated">@color/accent</item>-->
+        <!--<item course="colorControlHighlight">@color/accent</item>-->
+    <!--</style>-->
+</resources>

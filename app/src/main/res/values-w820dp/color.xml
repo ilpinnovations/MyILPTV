@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="colorPrimary">#009688</color>
+    <color name="colorPrimaryDark">#004D40</color>
+    <color name="colorAccent">#E91E63</color>
+    <color name="colorText">#222</color>
+    <color name="colorTextInverse">#fff</color>
+    <color name="card_background">@color/colorPrimaryDark</color>
+
+    <color name="edit_text_color">#D64214</color>
+
+    <!--&lt;!&ndash; Drawer List &ndash;&gt;
+    <color course="colorDrawerBackground">#eee</color>
+    <color course="colorDrawerItemBackgroundActive">#F44336</color>
+    <color course="colorDrawerItemText">#111</color>
+    <color course="colorDrawerItemTextActive">#FFF</color>
+    <color course="color_schedule_list_item_normal">#FFFFFF</color>
+    <color course="color_schedule_list_item_active">#F5F5F5</color>-->
+
+    <!-- contact list color sets -->
+    <color name="color_set_a">#F44336</color>
+    <color name="color_set_b">#9C27B0</color>
+    <color name="color_set_c">#009688</color>
+    <color name="color_set_d">#FF5722</color>
+    <color name="color_set_e">#009688</color>
+    <color name="color_set_f">#2196F3</color>
+
+    <!-- Loc button -->
+    <color name="color_loc_btn">#fdfdfd</color>
+    <color name="color_loc_btn_pressed">#efefef</color>
+
+    <!-- Classroom Button -->
+
+    <!-- Badge header -->
+    <color name="color_badge_header">#E91E63</color>
+    <!-- Map Toolbar color -->
+    <color name="color_map_toolbar">#fdfdfd</color>
+
+    <color name="icon_color">#005A53</color>
+
+    <color name="spinner_color">#303030</color>
+
+</resources>

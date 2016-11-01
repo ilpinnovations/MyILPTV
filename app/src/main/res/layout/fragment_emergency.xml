@@ -1,0 +1,40 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.tcs.myilptvapp.fragment.EmergencyFragment">
+
+    <TextView
+        android:id="@+id/title_emergency"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Emergency Contacts"
+        android:gravity="center"
+        android:textSize="@dimen/fragment_title_size"
+        android:textColor="@color/colorPrimary"
+        android:layout_marginBottom="20dp"/>
+
+    <Spinner
+        android:id="@+id/contacts_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:prompt="@string/spinner_prompt"
+        android:entries="@array/ilp_centres"
+        android:background="@color/spinner_color"
+        android:layout_marginTop="4dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginBottom="6dp"
+        android:padding="5dp" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/emergency_recycler_view"
+        android:numColumns="1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+
+
+</LinearLayout>
