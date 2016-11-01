@@ -2,6 +2,7 @@ package com.example.tcs.myilptvapp.fragment;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -60,7 +61,9 @@ public class ScheduleFragment extends Fragment {
     public static int REC_VIEW_CUR_POS = 1;
     public static int REC_VIEW_MAX_POS;
     public static final int REC_VIEW_MIN_POS = 0;
+
     private static int currFocus = 0;
+    public static final int RECVIEW1 = 1;
 
     private CustomLayoutManager mLayoutManager;
 
@@ -91,6 +94,18 @@ public class ScheduleFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 onSubmit();
+            }
+        });
+
+        submitButton.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if (b){
+                    submitButton.setBackgroundColor(getActivity().getResources().getColor(R.color.highlighting_color));
+                }
+                else {
+                    submitButton.setBackgroundColor(Color.TRANSPARENT);
+                }
             }
         });
 
@@ -130,63 +145,67 @@ public class ScheduleFragment extends Fragment {
 //                Log.i("ONFOCUSCHANGE- reclist", "focus has changed I repeat the focus has changed! current focus = " + currFocus);
 //                if(currFocus != RECVIEW1){
 //                    currFocus = RECVIEW1;
-//                    recyclerView.getChildAt(0).requestFocus();
+//                    recyclerView.getChildAt(0).setBackgroundColor(getActivity().getResources().getColor(R.color.colorPrimary));
+//                }else {
+//                    recyclerView.getChildAt(0).setBackgroundColor(getActivity().getResources().getColor(R.color.colorPrimaryDark));
 //                }
 //            }
 //        });
 
 
-        recyclerView.setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-//                Log.d(TAG, "REC_VIEW_MAX_POS: " + REC_VIEW_MAX_POS);
-                Log.d(TAG, "REC_VIEW_CUR_POS: " + REC_VIEW_CUR_POS);
-                CustomLayoutManager llmgr = (CustomLayoutManager) recyclerView.getLayoutManager();
-                int firstVisiblePos = llmgr.findFirstCompletelyVisibleItemPosition();
-                int lastVisiblePos = llmgr.findLastCompletelyVisibleItemPosition();
-
-                int diff = lastVisiblePos - firstVisiblePos;
-
-//                Log.i(TAG, "First: " + firstVisiblePos + " last: " + lastVisiblePos + " diff: " + diff);
-
-                int action = keyCode;
-//                Log.d(TAG, "onKey(); KEY_ACTION: " + action + " ACTION_UP: " + KeyEvent.KEYCODE_DPAD_UP + " ACTION_DOWN: " + KeyEvent.KEYCODE_DPAD_DOWN);
-
-                if(keyCode == KeyEvent.KEYCODE_DPAD_DOWN && event.getAction() == KeyEvent.ACTION_DOWN){
-                    REC_VIEW_CUR_POS += diff;
-                    Log.d(TAG, "REC_VIEW_CUR_POS Down: " + REC_VIEW_CUR_POS);
-                    if(REC_VIEW_CUR_POS<REC_VIEW_MAX_POS && REC_VIEW_CUR_POS>=REC_VIEW_MIN_POS) {
-                        recyclerView.smoothScrollToPosition(REC_VIEW_CUR_POS);
-                    }else {
-                        REC_VIEW_CUR_POS -= diff;
-                        //ToDo
-                        // implement focuschange to bottom fragment
-                    }
-
-                }
-
-                if (action == KeyEvent.KEYCODE_DPAD_UP && event.getAction() == KeyEvent.ACTION_DOWN){
-                    if(REC_VIEW_CUR_POS>REC_VIEW_MIN_POS && REC_VIEW_CUR_POS<=REC_VIEW_MAX_POS) {
-                        REC_VIEW_CUR_POS -= diff;
-                        recyclerView.smoothScrollToPosition(REC_VIEW_CUR_POS);
-                    }else {
-                        editText.requestFocus();
-                    }
-                }
-
-                if (action == KeyEvent.KEYCODE_DPAD_RIGHT && event.getAction() == KeyEvent.ACTION_DOWN){
-                    //Todo
-                    //implement focus change to schedule fragment
-                    recyclerView.clearFocus();
-                }
-
-                if (action == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN){
-                    getActivity().finish();
-                }
-
-                return true;
-            }
-        });
+//        recyclerView.setOnKeyListener(new View.OnKeyListener() {
+//            @Override
+//            public boolean onKey(View v, int keyCode, KeyEvent event) {
+////                Log.d(TAG, "REC_VIEW_MAX_POS: " + REC_VIEW_MAX_POS);
+//                Log.d(TAG, "REC_VIEW_CUR_POS: " + REC_VIEW_CUR_POS);
+//                CustomLayoutManager llmgr = (CustomLayoutManager) recyclerView.getLayoutManager();
+//                int firstVisiblePos = llmgr.findFirstCompletelyVisibleItemPosition();
+//                int lastVisiblePos = llmgr.findLastCompletelyVisibleItemPosition();
+//
+//                int diff = lastVisiblePos - firstVisiblePos;
+//
+////                Log.i(TAG, "First: " + firstVisiblePos + " last: " + lastVisiblePos + " diff: " + diff);
+//
+//                int action = keyCode;
+////                Log.d(TAG, "onKey(); KEY_ACTION: " + action + " ACTION_UP: " + KeyEvent.KEYCODE_DPAD_UP + " ACTION_DOWN: " + KeyEvent.KEYCODE_DPAD_DOWN);
+//
+//                if(keyCode == KeyEvent.KEYCODE_DPAD_DOWN && event.getAction() == KeyEvent.ACTION_DOWN){
+//                    REC_VIEW_CUR_POS += diff;
+//                    Log.d(TAG, "REC_VIEW_CUR_POS Down: " + REC_VIEW_CUR_POS);
+//                    if(REC_VIEW_CUR_POS<REC_VIEW_MAX_POS && REC_VIEW_CUR_POS>=REC_VIEW_MIN_POS) {
+//                        Log.d(TAG, "REC_VIEW_CUR_POS Down: " + REC_VIEW_CUR_POS);
+//                        recyclerView.smoothScrollToPosition(REC_VIEW_CUR_POS);
+//                    }else {
+//                        REC_VIEW_CUR_POS -= diff;
+//                        //ToDo
+//                        // implement focuschange to bottom fragment
+//                    }
+//
+//                }
+//
+//                if (action == KeyEvent.KEYCODE_DPAD_UP && event.getAction() == KeyEvent.ACTION_DOWN){
+//                    if(REC_VIEW_CUR_POS>REC_VIEW_MIN_POS && REC_VIEW_CUR_POS<=REC_VIEW_MAX_POS) {
+//                        REC_VIEW_CUR_POS -= diff;
+//                        recyclerView.smoothScrollToPosition(REC_VIEW_CUR_POS);
+//                    }else {
+//                        REC_VIEW_CUR_POS += diff;
+//                        editText.requestFocus();
+//                    }
+//                }
+//
+//                if (action == KeyEvent.KEYCODE_DPAD_RIGHT && event.getAction() == KeyEvent.ACTION_DOWN){
+//                    //Todo
+//                    //implement focus change to schedule fragment
+//                    recyclerView.clearFocus();
+//                }
+//
+//                if (action == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN){
+//                    getActivity().finish();
+//                }
+//
+//                return true;
+//            }
+//        });
 
 //        prepareSchedule();
         return rootView;

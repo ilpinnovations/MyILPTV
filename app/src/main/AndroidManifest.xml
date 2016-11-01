@@ -22,8 +22,8 @@
         <activity
             android:name=".activity.MainActivity"
             android:label="@string/title_activity_main"
-            android:icon="@drawable/lb_ic_play"
-            android:logo="@drawable/lb_ic_play">
+            android:icon="@drawable/ic_launcher"
+            android:logo="@drawable/ic_launcher">
             <intent-filter>
             <action android:name="android.intent.action.MAIN" />
 

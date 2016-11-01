@@ -2,6 +2,7 @@ package com.example.tcs.myilptvapp.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,8 +47,19 @@ public class EmergencyAdapter extends RecyclerView.Adapter<EmergencyAdapter.Cust
     }
 
     @Override
-    public void onBindViewHolder(EmergencyAdapter.CustomViewHolder holder, int position) {
+    public void onBindViewHolder(final EmergencyAdapter.CustomViewHolder holder, int position) {
         Emergency emergency = emergencyList.get(position);
+
+        holder.itemView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if (b){
+                    holder.itemView.findViewById(R.id.contacts_card_ll).setBackgroundColor(mContext.getResources().getColor(R.color.colorPrimary));
+                }else {
+                    holder.itemView.findViewById(R.id.contacts_card_ll).setBackgroundColor(mContext.getResources().getColor(R.color.colorPrimaryDark));
+                }
+            }
+        });
 
         holder.initials.setText(emergency.getInitials());
         holder.name.setText(emergency.getName());
