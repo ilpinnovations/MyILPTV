@@ -1,11 +1,10 @@
 package com.example.tcs.myilptvapp.fragment;
 
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -13,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -33,8 +33,9 @@ import com.example.tcs.myilptvapp.utils.Util;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
+//import java.sql.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 
@@ -46,7 +47,7 @@ public class ScheduleFragment extends Fragment {
     private ScheduleAdapter adapter;
     private RecyclerView recyclerView;
     private EditText editText;
-    private ImageView submitButton;
+    private ImageView submitButton, calendarButton;
     private TextView dateView;
 
     SharedPreferences sharedPreferences;
@@ -54,8 +55,12 @@ public class ScheduleFragment extends Fragment {
     private static final String TAG_PREFERENCE_LOCATION_SPINNER = "PrefLocationSpinner";
     private static final String BATCH_KEY = "batchKey";
 
-    private String date;
+    private String currentDate;
     private String dateModified;
+
+    private java.sql.Date date;
+    private SimpleDateFormat dateFormat = new SimpleDateFormat(
+            "E, dd MMM yyyy", Locale.US);
 
     public static final int BANNER = 0;
     public static int REC_VIEW_CUR_POS = 1;
@@ -67,6 +72,42 @@ public class ScheduleFragment extends Fragment {
 
     private CustomLayoutManager mLayoutManager;
 
+    private DatePickerDialog.OnDateSetListener dateSetListner = new DatePickerDialog.OnDateSetListener() {
+        @Override
+        public void onDateSet(DatePicker view, int year, int monthOfYear,
+                              int dayOfMonth) {
+            String dateStr = String.valueOf(year)
+                    + "-"
+                    + (monthOfYear < 9 ? "0" + String.valueOf(monthOfYear + 1)
+                    : String.valueOf(monthOfYear + 1))
+                    + "-"
+                    + (dayOfMonth < 9 ? "0" + String.valueOf(dayOfMonth)
+                    : String.valueOf(dayOfMonth));
+            Log.d(TAG, dateStr);
+            date = java.sql.Date.valueOf(dateStr);
+            dateView.setText(dateFormat.format(date));
+
+            String batchName = sharedPreferences.getString(BATCH_KEY, null);
+
+            if (batchName == null){
+                //ToDo
+                //batch name doesnt exist
+                Log.i(TAG, "No batch key in shared preferences!");
+            } else {
+                editText.setHint(batchName);
+                sendRequest(generateUrl(batchName, dateStr));
+            }
+//            fetchSchedule();
+        }
+    };
+    private View.OnClickListener dateChangeClickListner = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            new DatePickFragment(dateSetListner, date).show(
+                    getActivity().getFragmentManager(), DatePickFragment.TAG);
+        }
+    };
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,13 +118,14 @@ public class ScheduleFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         final View rootView = inflater.inflate(R.layout.fragment_schedule, container, false);
-        date  = Constants.paramsDateFormat.format(new Date());
-        dateModified = new SimpleDateFormat("EEE, dd MMM, yyyy").format(new Date());
+        currentDate = Constants.paramsDateFormat.format(new java.util.Date());
+        dateModified = new SimpleDateFormat("EEE, dd MMM, yyyy").format(new java.util.Date());
 
         recyclerView = (RecyclerView) rootView.findViewById(R.id.schedule_recycler_view);
         editText = (EditText) rootView.findViewById(R.id.schedule_batch_et);
         dateView = (TextView) rootView.findViewById(R.id.schedule_date_tv);
         submitButton = (ImageView) rootView.findViewById(R.id.schedule_submit_ib);
+        calendarButton = (ImageView) rootView.findViewById(R.id.btn_calendar);
 
         Log.i(TAG, "Modified Date: " + dateModified);
         dateView.setText(dateModified);
@@ -96,7 +138,6 @@ public class ScheduleFragment extends Fragment {
                 onSubmit();
             }
         });
-
         submitButton.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
@@ -104,7 +145,19 @@ public class ScheduleFragment extends Fragment {
                     submitButton.setBackgroundColor(getActivity().getResources().getColor(R.color.highlighting_color));
                 }
                 else {
-                    submitButton.setBackgroundColor(Color.TRANSPARENT);
+                    submitButton.setBackgroundColor(getActivity().getResources().getColor(R.color.spinner_color));
+                }
+            }
+        });
+
+        calendarButton.setOnClickListener(dateChangeClickListner);
+        calendarButton.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if (b){
+                    calendarButton.setBackgroundColor(getActivity().getResources().getColor(R.color.highlighting_color));
+                }else {
+                    calendarButton.setBackgroundColor(getActivity().getResources().getColor(R.color.spinner_color));
                 }
             }
         });
@@ -128,7 +181,7 @@ public class ScheduleFragment extends Fragment {
             Log.i(TAG, "No batch key in shared preferences!");
         } else {
             editText.setHint(batchName);
-            sendRequest(generateUrl(batchName));
+            sendRequest(generateUrl(batchName, currentDate));
         }
 
         scheduleList = new ArrayList<>();
@@ -245,18 +298,23 @@ public class ScheduleFragment extends Fragment {
         ParseJSONSchedule pj = new ParseJSONSchedule(json);
         ArrayList<Schedule> tempList = pj.parseJSON();
 
-        REC_VIEW_MAX_POS = tempList.size()-1;
-
-        scheduleList.clear();
-        for (Schedule s: tempList){
-            scheduleList.add(s);
-        }
+        if (tempList.size() != 0){
+            scheduleList.clear();
+            for (Schedule s: tempList){
+                scheduleList.add(s);
+            }
 
 //        Log.i(TAG, "Sample schedule: " + scheduleList.get(3).getCourse());
-        adapter.notifyDataSetChanged();
+            adapter.notifyDataSetChanged();
+        }else {
+            scheduleList.clear();
+            adapter.notifyDataSetChanged();
+            Toast toast = Toast.makeText(getActivity(), "No schedule present for the given Batch!", Toast.LENGTH_SHORT);
+            toast.show();
+        }
     }
 
-    private String generateUrl(String batchName){
+    private String generateUrl(String batchName, String date){
         Map<String, String> params = new HashMap<>();
         params.put(Constants.NETWORK_PARAMS.SCHEDULE.BATCH, batchName);
         params.put(Constants.NETWORK_PARAMS.SCHEDULE.DATE, date);
@@ -274,16 +332,24 @@ public class ScheduleFragment extends Fragment {
     private void onSubmit(){
         //                EditText ed = (EditText) v.findViewById(R.id.schedule_batch_et);
         String batchName = editText.getText().toString().toUpperCase();
-//                String baseUrl = "http://theinspirer.in/ilpscheduleapp/schedulelist_json.php?date" + date + "batch=" + batchName;
+//                String baseUrl = "http://theinspirer.in/ilpscheduleapp/schedulelist_json.php?date" + currentDate + "batch=" + batchName;
+        if (!batchName.equalsIgnoreCase("")){
+            editText.setText(batchName);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString(BATCH_KEY, batchName);
+            editor.apply();
 
-        editText.setText(batchName);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(BATCH_KEY, batchName);
-        editor.commit();
+            sendRequest(generateUrl(batchName, currentDate));
 
-        sendRequest(generateUrl(batchName));
-
-        Toast toast = Toast.makeText(getActivity(), batchName, Toast.LENGTH_SHORT);
-        toast.show();
+            Toast toast = Toast.makeText(getActivity(), batchName, Toast.LENGTH_SHORT);
+            toast.show();
+        }else {
+            scheduleList.clear();
+            adapter.notifyDataSetChanged();
+            Toast toast = Toast.makeText(getActivity(), "Please enter a Batch Name!", Toast.LENGTH_SHORT);
+            toast.show();
+        }
     }
+
+
 }

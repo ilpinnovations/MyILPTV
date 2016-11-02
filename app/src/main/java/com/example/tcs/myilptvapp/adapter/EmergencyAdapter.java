@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.TranslateAnimation;
 import android.widget.TextView;
 
 import com.example.tcs.myilptvapp.data.Emergency;
@@ -19,6 +20,7 @@ import java.util.List;
 
 public class EmergencyAdapter extends RecyclerView.Adapter<EmergencyAdapter.CustomViewHolder> {
 
+    private static final String TAG = EmergencyAdapter.class.getSimpleName();
     private Context mContext;
     private List<Emergency> emergencyList;
 
@@ -61,6 +63,7 @@ public class EmergencyAdapter extends RecyclerView.Adapter<EmergencyAdapter.Cust
             }
         });
 
+        Log.i(TAG, "Initials: " + emergency.getInitials());
         holder.initials.setText(emergency.getInitials());
         holder.name.setText(emergency.getName());
         holder.number.setText(emergency.getNumber());

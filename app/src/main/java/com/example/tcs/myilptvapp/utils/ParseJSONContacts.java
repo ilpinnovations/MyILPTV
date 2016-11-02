@@ -40,10 +40,8 @@ public class ParseJSONContacts {
                 jobj = jarr.getJSONObject(i);
                 Iterator<String> it = jobj.keys();
                 while (it.hasNext()) {
-                    contact = new Emergency();
                     String title = it.next();
-                    contact.setName(title);
-                    contact.setNumber(jobj.getString(title));
+                    contact = new Emergency(title, jobj.getString(title));
                     contacts.add(contact);
                 }
             }
