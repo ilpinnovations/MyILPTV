@@ -4,6 +4,8 @@
     <dimen name="activity_vertical_margin">10dp</dimen>
     <dimen name="fragment_title_size">25dp</dimen>
     <dimen name="card_margin">10dp</dimen>
+
+    <dimen name="text_size_1">80dp</dimen>
     <dimen name="card_text_size_1">40dp</dimen>
     <dimen name="card_text_size_2">16dp</dimen>
     <dimen name="card_text_size_3">20dp</dimen>

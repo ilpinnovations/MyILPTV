@@ -82,6 +82,8 @@ public class EmergencyFragment extends Fragment {
         mAdapter = new ArrayAdapter<String>(getActivity(), R.layout.spinner_item, array);
         dropDown.setAdapter(mAdapter);
 
+//        dropDown.requestFocus();
+
         dropDown.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {

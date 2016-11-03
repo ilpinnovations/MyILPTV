@@ -41,12 +41,15 @@
             android:id="@+id/btn_calendar"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:background="@color/spinner_color"
             android:src="@drawable/ic_date_range_white_48dp"
+            android:tint="@color/spinner_color"
             android:padding="0dp"
             android:clickable="true"
             android:focusable="true"
-            android:focusableInTouchMode="true" />
+            android:focusableInTouchMode="true"
+            android:nextFocusDown="@+id/schedule_batch_et"
+            android:nextFocusRight="@null"/>
+
     </LinearLayout>
 
     <LinearLayout
@@ -64,7 +67,7 @@
             android:nextFocusRight="@+id/schedule_submit_ib"
             android:textColor="@color/colorText"
             android:textColorHint="@android:color/darker_gray"
-            android:backgroundTint="@color/edit_text_color"
+            android:backgroundTint="@color/colorPrimary"
             android:focusableInTouchMode="true"/>
         />
 
@@ -73,10 +76,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_send_white_48dp"
-            android:background="@color/spinner_color"
+            android:tint="@color/spinner_color"
             android:clickable="true"
             android:focusable="true"
-            android:focusableInTouchMode="true" />
+            android:focusableInTouchMode="true"
+            android:nextFocusLeft="@+id/schedule_batch_et"
+            android:nextFocusDown="@+id/schedule_recycler_view"/>
 
     </LinearLayout>
 
@@ -84,6 +89,8 @@
         android:id="@+id/schedule_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:descendantFocusability="afterDescendants" />
+        android:descendantFocusability="afterDescendants"
+        android:nextFocusUp="@+id/schedule_batch_et"
+        android:nextFocusDown="@null"/>
 
 </LinearLayout>

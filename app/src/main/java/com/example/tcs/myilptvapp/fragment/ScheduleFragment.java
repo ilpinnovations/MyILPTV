@@ -3,6 +3,7 @@ package com.example.tcs.myilptvapp.fragment;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
@@ -127,6 +128,10 @@ public class ScheduleFragment extends Fragment {
         submitButton = (ImageView) rootView.findViewById(R.id.schedule_submit_ib);
         calendarButton = (ImageView) rootView.findViewById(R.id.btn_calendar);
 
+        editText.requestFocus();
+
+        recyclerView.setNextFocusUpId(R.id.schedule_batch_et);
+
         Log.i(TAG, "Modified Date: " + dateModified);
         dateView.setText(dateModified);
 
@@ -142,10 +147,10 @@ public class ScheduleFragment extends Fragment {
             @Override
             public void onFocusChange(View view, boolean b) {
                 if (b){
-                    submitButton.setBackgroundColor(getActivity().getResources().getColor(R.color.highlighting_color));
+                    submitButton.setColorFilter(getActivity().getResources().getColor(R.color.highlighting_color));
                 }
                 else {
-                    submitButton.setBackgroundColor(getActivity().getResources().getColor(R.color.spinner_color));
+                    submitButton.setColorFilter(getActivity().getResources().getColor(R.color.spinner_color));
                 }
             }
         });
@@ -155,9 +160,9 @@ public class ScheduleFragment extends Fragment {
             @Override
             public void onFocusChange(View view, boolean b) {
                 if (b){
-                    calendarButton.setBackgroundColor(getActivity().getResources().getColor(R.color.highlighting_color));
+                    calendarButton.setColorFilter(getActivity().getResources().getColor(R.color.highlighting_color));
                 }else {
-                    calendarButton.setBackgroundColor(getActivity().getResources().getColor(R.color.spinner_color));
+                    calendarButton.setColorFilter(getActivity().getResources().getColor(R.color.spinner_color));
                 }
             }
         });
@@ -170,6 +175,17 @@ public class ScheduleFragment extends Fragment {
                     onSubmit();
                 }
                 return false;
+            }
+        });
+
+        editText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if (b){
+                    editText.getBackground().setColorFilter(getActivity().getResources().getColor(R.color.highlighting_color), PorterDuff.Mode.SRC_ATOP);
+                }else {
+                    editText.getBackground().setColorFilter(getActivity().getResources().getColor(R.color.spinner_color), PorterDuff.Mode.SRC_ATOP);
+                }
             }
         });
 
