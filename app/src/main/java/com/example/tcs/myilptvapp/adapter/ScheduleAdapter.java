@@ -1,14 +1,11 @@
 package com.example.tcs.myilptvapp.adapter;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.tcs.myilptvapp.R;
@@ -48,7 +45,7 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.Custom
 
     @Override
     public ScheduleAdapter.CustomViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_schedule, parent, false);
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_card_schedule, parent, false);
         itemView.setClickable(true);
         return new CustomViewHolder(itemView);
     }

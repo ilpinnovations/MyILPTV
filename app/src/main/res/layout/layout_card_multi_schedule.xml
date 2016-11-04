@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:orientation="horizontal">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        android:background="@color/card_background">
+
+        <LinearLayout
+            android:id="@+id/schedule_card_ll_2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:paddingRight="15dp"
+            android:paddingLeft="15dp"
+            android:background="@color/card_background">
+
+            <TextView
+                android:id="@+id/schedule_card_course_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text="AO - SERVICE DESIGN-IT SCM"
+                android:textSize="@dimen/card_text_size_3"/>
+
+            <TextView
+                android:id="@+id/schedule_card_faculty_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text="469426/Preetha Sujith"
+                android:textSize="@dimen/card_text_size_2"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/schedule_card_room_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:gravity="left"
+                    android:text="Room TRAINING 11"
+                    android:textSize="@dimen/card_text_size_2"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:singleLine="false"/>
+
+                <TextView
+                    android:id="@+id/schedule_card_slot_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:gravity="right"
+                    android:text="SLOT D"
+                    android:textSize="18dp"/>
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        android:background="@color/card_background">
+
+        <LinearLayout
+            android:id="@+id/schedule_card_ll_3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:paddingRight="15dp"
+            android:paddingLeft="15dp"
+            android:background="@color/card_background">
+
+            <TextView
+                android:id="@+id/schedule_card_course_3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text="AO - SERVICE DESIGN-IT SCM"
+                android:textSize="@dimen/card_text_size_3"/>
+
+            <TextView
+                android:id="@+id/schedule_card_faculty_3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text="469426/Preetha Sujith"
+                android:textSize="@dimen/card_text_size_2"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/schedule_card_room_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:gravity="left"
+                    android:text="Room TRAINING 11"
+                    android:textSize="@dimen/card_text_size_2"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:singleLine="false"/>
+
+                <TextView
+                    android:id="@+id/schedule_card_slot_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:gravity="right"
+                    android:text="SLOT D"
+                    android:textSize="18dp"/>
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        android:background="@color/card_background">
+
+        <LinearLayout
+            android:id="@+id/schedule_card_ll_4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:paddingRight="15dp"
+            android:paddingLeft="15dp"
+            android:background="@color/card_background">
+
+            <TextView
+                android:id="@+id/schedule_card_course_4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text="AO - SERVICE DESIGN-IT SCM"
+                android:textSize="@dimen/card_text_size_3"/>
+
+            <TextView
+                android:id="@+id/schedule_card_faculty_4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text="469426/Preetha Sujith"
+                android:textSize="@dimen/card_text_size_2"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/schedule_card_room_4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:gravity="left"
+                    android:text="Room TRAINING 11"
+                    android:textSize="@dimen/card_text_size_2"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:singleLine="false"/>
+
+                <TextView
+                    android:id="@+id/schedule_card_slot_4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:gravity="right"
+                    android:text="SLOT D"
+                    android:textSize="18dp"/>
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>

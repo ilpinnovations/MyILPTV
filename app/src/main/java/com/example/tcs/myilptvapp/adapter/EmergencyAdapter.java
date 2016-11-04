@@ -6,7 +6,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.TranslateAnimation;
 import android.widget.TextView;
 
 import com.example.tcs.myilptvapp.data.Emergency;
@@ -44,7 +43,7 @@ public class EmergencyAdapter extends RecyclerView.Adapter<EmergencyAdapter.Cust
 
     @Override
     public EmergencyAdapter.CustomViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_emergency, parent, false);
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_card_emergency, parent, false);
         return new CustomViewHolder(itemView);
     }
 

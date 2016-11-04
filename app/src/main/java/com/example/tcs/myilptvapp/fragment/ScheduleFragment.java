@@ -24,6 +24,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.tcs.myilptvapp.utils.ConnectionDetector;
 import com.example.tcs.myilptvapp.utils.Constants;
 import com.example.tcs.myilptvapp.utils.CustomLayoutManager;
 import com.example.tcs.myilptvapp.R;
@@ -189,15 +190,20 @@ public class ScheduleFragment extends Fragment {
             }
         });
 
-        String batchName = sharedPreferences.getString(BATCH_KEY, null);
+        if (ConnectionDetector.isConnected(getActivity())){
+            String batchName = sharedPreferences.getString(BATCH_KEY, null);
 
-        if (batchName == null){
-            //ToDo
-            //batch name doesnt exist
-            Log.i(TAG, "No batch key in shared preferences!");
-        } else {
-            editText.setHint(batchName);
-            sendRequest(generateUrl(batchName, currentDate));
+            if (batchName == null){
+                //ToDo
+                //batch name doesnt exist
+                Log.i(TAG, "No batch key in shared preferences!");
+            } else {
+                editText.setHint(batchName);
+                sendRequest(generateUrl(batchName, currentDate));
+            }
+        }else {
+            Toast toast = Toast.makeText(getActivity(), "No internet connection!", Toast.LENGTH_SHORT);
+            toast.show();
         }
 
         scheduleList = new ArrayList<>();
@@ -347,22 +353,27 @@ public class ScheduleFragment extends Fragment {
 
     private void onSubmit(){
         //                EditText ed = (EditText) v.findViewById(R.id.schedule_batch_et);
-        String batchName = editText.getText().toString().toUpperCase();
+        if (ConnectionDetector.isConnected(getActivity())){
+            String batchName = editText.getText().toString().toUpperCase();
 //                String baseUrl = "http://theinspirer.in/ilpscheduleapp/schedulelist_json.php?date" + currentDate + "batch=" + batchName;
-        if (!batchName.equalsIgnoreCase("")){
-            editText.setText(batchName);
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString(BATCH_KEY, batchName);
-            editor.apply();
+            if (!batchName.equalsIgnoreCase("")){
+                editText.setText(batchName);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString(BATCH_KEY, batchName);
+                editor.apply();
 
-            sendRequest(generateUrl(batchName, currentDate));
+                sendRequest(generateUrl(batchName, currentDate));
 
-            Toast toast = Toast.makeText(getActivity(), batchName, Toast.LENGTH_SHORT);
-            toast.show();
+                Toast toast = Toast.makeText(getActivity(), batchName, Toast.LENGTH_SHORT);
+                toast.show();
+            }else {
+                scheduleList.clear();
+                adapter.notifyDataSetChanged();
+                Toast toast = Toast.makeText(getActivity(), "Please enter a Batch Name!", Toast.LENGTH_SHORT);
+                toast.show();
+            }
         }else {
-            scheduleList.clear();
-            adapter.notifyDataSetChanged();
-            Toast toast = Toast.makeText(getActivity(), "Please enter a Batch Name!", Toast.LENGTH_SHORT);
+            Toast toast = Toast.makeText(getActivity(), "No internet connection!", Toast.LENGTH_SHORT);
             toast.show();
         }
     }
