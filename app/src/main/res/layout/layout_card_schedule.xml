@@ -27,7 +27,7 @@
                 android:id="@+id/schedule_card_course"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="left"
+                android:gravity="center"
                 android:text="AO - SERVICE DESIGN-IT SCM"
                 android:textSize="@dimen/card_text_size_3"/>
 

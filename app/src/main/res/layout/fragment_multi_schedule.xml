@@ -12,7 +12,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginRight="20dp"
         android:layout_gravity="center">
 
         <TextView
@@ -33,6 +32,47 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="SLOT A"
+            android:gravity="center"
+            android:textSize="@dimen/card_text_size_3"
+            android:textColor="@color/colorText"
+            android:layout_weight="1"
+            android:visibility="invisible"/>
+        <TextView
+            android:id="@+id/schedule_slot1"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="SLOT A"
+            android:gravity="center"
+            android:textSize="@dimen/card_text_size_2"
+            android:textColor="@color/colorText"
+            android:layout_weight="1"/>
+        <TextView
+            android:id="@+id/schedule_slot2"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="SLOT B"
+            android:gravity="center"
+            android:textSize="@dimen/card_text_size_2"
+            android:textColor="@color/colorText"
+            android:layout_weight="1"/>
+        <TextView
+            android:id="@+id/schedule_slot3"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="SLOT C"
+            android:gravity="center"
+            android:textSize="@dimen/card_text_size_2"
+            android:textColor="@color/colorText"
+            android:layout_weight="1"/>
+    </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/multi_schedule_recycler_view"

@@ -24,6 +24,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.tcs.myilptvapp.activity.MainActivity;
 import com.example.tcs.myilptvapp.utils.ConnectionDetector;
 import com.example.tcs.myilptvapp.utils.Constants;
 import com.example.tcs.myilptvapp.utils.CustomLayoutManager;
@@ -129,7 +130,7 @@ public class ScheduleFragment extends Fragment {
         submitButton = (ImageView) rootView.findViewById(R.id.schedule_submit_ib);
         calendarButton = (ImageView) rootView.findViewById(R.id.btn_calendar);
 
-        editText.requestFocus();
+//        editText.requestFocus();
 
         recyclerView.setNextFocusUpId(R.id.schedule_batch_et);
 
@@ -213,87 +214,9 @@ public class ScheduleFragment extends Fragment {
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setAdapter(adapter);
 
-
-//        recyclerView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-//            @Override
-//            public void onFocusChange(View v, boolean hasFocus) {
-//                Log.i("ONFOCUSCHANGE- reclist", "focus has changed I repeat the focus has changed! current focus = " + currFocus);
-//                if(currFocus != RECVIEW1){
-//                    currFocus = RECVIEW1;
-//                    recyclerView.getChildAt(0).setBackgroundColor(getActivity().getResources().getColor(R.color.colorPrimary));
-//                }else {
-//                    recyclerView.getChildAt(0).setBackgroundColor(getActivity().getResources().getColor(R.color.colorPrimaryDark));
-//                }
-//            }
-//        });
-
-
-//        recyclerView.setOnKeyListener(new View.OnKeyListener() {
-//            @Override
-//            public boolean onKey(View v, int keyCode, KeyEvent event) {
-////                Log.d(TAG, "REC_VIEW_MAX_POS: " + REC_VIEW_MAX_POS);
-//                Log.d(TAG, "REC_VIEW_CUR_POS: " + REC_VIEW_CUR_POS);
-//                CustomLayoutManager llmgr = (CustomLayoutManager) recyclerView.getLayoutManager();
-//                int firstVisiblePos = llmgr.findFirstCompletelyVisibleItemPosition();
-//                int lastVisiblePos = llmgr.findLastCompletelyVisibleItemPosition();
-//
-//                int diff = lastVisiblePos - firstVisiblePos;
-//
-////                Log.i(TAG, "First: " + firstVisiblePos + " last: " + lastVisiblePos + " diff: " + diff);
-//
-//                int action = keyCode;
-////                Log.d(TAG, "onKey(); KEY_ACTION: " + action + " ACTION_UP: " + KeyEvent.KEYCODE_DPAD_UP + " ACTION_DOWN: " + KeyEvent.KEYCODE_DPAD_DOWN);
-//
-//                if(keyCode == KeyEvent.KEYCODE_DPAD_DOWN && event.getAction() == KeyEvent.ACTION_DOWN){
-//                    REC_VIEW_CUR_POS += diff;
-//                    Log.d(TAG, "REC_VIEW_CUR_POS Down: " + REC_VIEW_CUR_POS);
-//                    if(REC_VIEW_CUR_POS<REC_VIEW_MAX_POS && REC_VIEW_CUR_POS>=REC_VIEW_MIN_POS) {
-//                        Log.d(TAG, "REC_VIEW_CUR_POS Down: " + REC_VIEW_CUR_POS);
-//                        recyclerView.smoothScrollToPosition(REC_VIEW_CUR_POS);
-//                    }else {
-//                        REC_VIEW_CUR_POS -= diff;
-//                        //ToDo
-//                        // implement focuschange to bottom fragment
-//                    }
-//
-//                }
-//
-//                if (action == KeyEvent.KEYCODE_DPAD_UP && event.getAction() == KeyEvent.ACTION_DOWN){
-//                    if(REC_VIEW_CUR_POS>REC_VIEW_MIN_POS && REC_VIEW_CUR_POS<=REC_VIEW_MAX_POS) {
-//                        REC_VIEW_CUR_POS -= diff;
-//                        recyclerView.smoothScrollToPosition(REC_VIEW_CUR_POS);
-//                    }else {
-//                        REC_VIEW_CUR_POS += diff;
-//                        editText.requestFocus();
-//                    }
-//                }
-//
-//                if (action == KeyEvent.KEYCODE_DPAD_RIGHT && event.getAction() == KeyEvent.ACTION_DOWN){
-//                    //Todo
-//                    //implement focus change to schedule fragment
-//                    recyclerView.clearFocus();
-//                }
-//
-//                if (action == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN){
-//                    getActivity().finish();
-//                }
-//
-//                return true;
-//            }
-//        });
-
-//        prepareSchedule();
         return rootView;
     }
 
-    public void prepareSchedule(){
-        for(int i=0, j=7; i<REC_VIEW_MAX_POS; i++,j+=2){
-//            scheduleList.add(new Schedule("Lecture: " + (i+1), "Reshmi", "Slot: " + j, "Room A" + j, "" +j+40));
-        }
-
-        adapter.notifyDataSetChanged();
-        Log.d(TAG, "prepareSchedule");
-    }
 
     private void sendRequest(String jsonUrl){
 
@@ -378,5 +301,10 @@ public class ScheduleFragment extends Fragment {
         }
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+//        ((MainActivity)getActivity()).clearBackStackInclusive("tag"); // tag (addToBackStack tag) should be the same which was used while transacting the F2 fragment
+    }
 
 }

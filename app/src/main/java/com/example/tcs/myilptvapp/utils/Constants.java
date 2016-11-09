@@ -10,6 +10,8 @@ public interface Constants {
 	String URL_NOTIFICATION = URL_BASE + "notify_json.php";
 	String URL_SCHEDULE = URL_BASE + "schedulelist_json.php";
 	String URL_CONTACTS = URL_BASE + "getEmergencyContacts.php?";
+	String URL_SCHEDULE_LOCATION = URL_BASE + "get_schedule_location.php";
+    String URL_BATCHES = URL_BASE + "get_batches.php";
 	String URL_FEEDBACK_SUBMIT = URL_BASE + "feedback_json.php";
 	String URL_FEEDBACK_SUMMARY = URL_BASE + "faculty_json.php?";
 	String URL_REGISTER = URL_BASE + "register.php";
@@ -83,6 +85,19 @@ public interface Constants {
 			String BATCH = "batch";
 			String DATE = "date";
 		}
+
+        public interface SCHEDULE_LOCATION {
+            String URL = URL_SCHEDULE_LOCATION + QUESTIONMARK;
+            String LOCATION = "location";
+            String DATE = "date";
+            String SLOT = "slot";
+        }
+
+        public interface BATCHES {
+            String URL = URL_BATCHES + QUESTIONMARK;
+            String LOCATION = "location";
+            String DATE = "date";
+        }
 
 		public interface CONTACT {
 			String URL = URL_CONTACTS + QUESTIONMARK;

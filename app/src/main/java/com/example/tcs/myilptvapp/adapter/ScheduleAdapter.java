@@ -58,7 +58,7 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.Custom
             @Override
             public void onFocusChange(View view, boolean b) {
                 if (b){
-                    Log.i(TAG, "onFocusChange True");
+//                    Log.i(TAG, "onFocusChange True");
                     holder.itemView.findViewById(R.id.schedule_card_ll).setBackgroundColor(mContext.getResources().getColor(R.color.colorPrimary));
                 }else {
                     holder.itemView.findViewById(R.id.schedule_card_ll).setBackgroundColor(mContext.getResources().getColor(R.color.colorPrimaryDark));

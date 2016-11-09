@@ -2,13 +2,12 @@ package com.example.tcs.myilptvapp.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.tcs.myilptvapp.data.Emergency;
+import com.example.tcs.myilptvapp.data.Contacts;
 import com.example.tcs.myilptvapp.R;
 
 import java.util.List;
@@ -17,11 +16,11 @@ import java.util.List;
  * Created by tcs on 21/10/16.
  */
 
-public class EmergencyAdapter extends RecyclerView.Adapter<EmergencyAdapter.CustomViewHolder> {
+public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.CustomViewHolder> {
 
-    private static final String TAG = EmergencyAdapter.class.getSimpleName();
+    private static final String TAG = ContactsAdapter.class.getSimpleName();
     private Context mContext;
-    private List<Emergency> emergencyList;
+    private List<Contacts> emergencyList;
 
     public class CustomViewHolder extends RecyclerView.ViewHolder{
 
@@ -36,20 +35,20 @@ public class EmergencyAdapter extends RecyclerView.Adapter<EmergencyAdapter.Cust
         }
     }
 
-    public EmergencyAdapter(Context mContext, List<Emergency> emergencyList){
+    public ContactsAdapter(Context mContext, List<Contacts> emergencyList){
         this.mContext = mContext;
         this.emergencyList = emergencyList;
     }
 
     @Override
-    public EmergencyAdapter.CustomViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ContactsAdapter.CustomViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_card_emergency, parent, false);
         return new CustomViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(final EmergencyAdapter.CustomViewHolder holder, int position) {
-        Emergency emergency = emergencyList.get(position);
+    public void onBindViewHolder(final ContactsAdapter.CustomViewHolder holder, int position) {
+        Contacts emergency = emergencyList.get(position);
 
         holder.itemView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -62,7 +61,7 @@ public class EmergencyAdapter extends RecyclerView.Adapter<EmergencyAdapter.Cust
             }
         });
 
-        Log.i(TAG, "Initials: " + emergency.getInitials());
+//        Log.i(TAG, "Initials: " + emergency.getInitials());
         holder.initials.setText(emergency.getInitials());
         holder.name.setText(emergency.getName());
         holder.number.setText(emergency.getNumber());

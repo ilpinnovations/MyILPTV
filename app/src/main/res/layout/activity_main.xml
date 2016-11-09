@@ -17,7 +17,7 @@
         android:orientation="horizontal"
         android:gravity="center_vertical"
         android:paddingBottom="20dp"
-        android:paddingTop="20dp">
+        android:paddingTop="10dp">
         <ImageView
             android:layout_margin="0dp"
             android:layout_width="wrap_content"
@@ -31,6 +31,43 @@
             android:textColor="@color/icon_color"
             android:textSize="@dimen/card_text_size_1"
             android:layout_marginLeft="20dp"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <CheckBox
+                android:id="@+id/checkbox"
+                android:layout_centerInParent="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/checkbox_background"
+                android:text="Multi Schedule"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="10dp"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_toStartOf="@id/checkbox"
+                android:layout_centerVertical="true"
+                android:gravity="center">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Location: "
+                    android:textColor="@color/colorText"
+                    android:gravity="center"/>
+                <Spinner
+                    android:id="@+id/contacts_spinner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:prompt="@string/spinner_prompt"
+                    android:entries="@array/ilp_centres"
+                    android:background="@drawable/spinner_background"
+                    android:gravity="center"/>
+            </LinearLayout>
+        </RelativeLayout>
     </LinearLayout>
 
     <LinearLayout
@@ -39,22 +76,18 @@
         android:layout_height="wrap_content"
         android:layout_weight="1">
 
-        <fragment
-            android:id="@+id/fragment_schedule"
-            android:name="com.example.tcs.myilptvapp.fragment.ScheduleFragment"
+        <FrameLayout
+            android:id="@+id/fragment_schedule_container"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="2"
-            tools:layout="@layout/fragment_schedule"/>
+            android:layout_weight="3"/>
 
-        <fragment
-            android:id="@+id/fragment_emergency_contacts"
-            android:name="com.example.tcs.myilptvapp.fragment.EmergencyFragment"
+        <FrameLayout
+            android:id="@+id/fragment_contacts_container"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:layout="@layout/fragment_emergency"
-            android:layout_marginLeft="20dp"/>
+            android:paddingLeft="20dp"/>
 
     </LinearLayout>
 

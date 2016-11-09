@@ -2,8 +2,7 @@ package com.example.tcs.myilptvapp.utils;
 
 import android.util.Log;
 
-import com.example.tcs.myilptvapp.data.Emergency;
-import com.example.tcs.myilptvapp.data.Schedule;
+import com.example.tcs.myilptvapp.data.Contacts;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -19,7 +18,7 @@ public class ParseJSONContacts {
 
     private static final String TAG = ParseJSONContacts.class.getSimpleName();
 
-    private ArrayList<Emergency> contacts;
+    private ArrayList<Contacts> contacts;
     private JSONArray baseArray = null;
 
     private String json;
@@ -29,19 +28,19 @@ public class ParseJSONContacts {
         contacts = new ArrayList<>();
     }
 
-    public ArrayList<Emergency> parseJSON(){
+    public ArrayList<Contacts> parseJSON(){
         JSONObject jsonObject=null;
         try {
             Log.d(TAG, "fetch contacts response ->" + json);
             JSONArray jarr = new JSONArray(json);
             JSONObject jobj;
-            Emergency contact;
+            Contacts contact;
             for (int i = 0; i < jarr.length(); i++) {
                 jobj = jarr.getJSONObject(i);
                 Iterator<String> it = jobj.keys();
                 while (it.hasNext()) {
                     String title = it.next();
-                    contact = new Emergency(title, jobj.getString(title));
+                    contact = new Contacts(title, jobj.getString(title));
                     contacts.add(contact);
                 }
             }

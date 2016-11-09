@@ -32,4 +32,24 @@ public class Util {
         }
         return strb.toString();
     }
+
+    public static int getRowNumber(int pos, int spanCount){
+        int row = 0;
+        int flag = 0;
+
+        for (int i=0; i<pos-3; i+=spanCount){
+            for (int j=i; j<spanCount; j++){
+                if (j == pos){
+                    flag = 1;
+                    break;
+                }
+            }
+            if (flag == 1){
+                break;
+            }
+            row++;
+        }
+
+        return row;
+    }
 }

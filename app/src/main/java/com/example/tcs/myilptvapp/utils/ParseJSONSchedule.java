@@ -1,5 +1,7 @@
 package com.example.tcs.myilptvapp.utils;
 
+import android.util.Log;
+
 import com.example.tcs.myilptvapp.data.Schedule;
 
 import org.json.JSONArray;
@@ -12,6 +14,9 @@ import java.util.ArrayList;
  * Created by Shubham Sahu on 9/22/2015.
  */
 public class ParseJSONSchedule {
+
+    private static final String TAG = ParseJSONSchedule.class.getSimpleName();
+
     private static String[] ids;
     private static String[] names;
     private static String[] emails;
@@ -38,6 +43,7 @@ public class ParseJSONSchedule {
     public ArrayList<Schedule> parseJSON(){
         JSONObject jsonObject=null;
         try {
+            Log.d(TAG, "fetch contacts response ->" + json);
             jsonObject = new JSONObject(json);
             baseArray = jsonObject.getJSONArray(JSON_ARRAY);
 
