@@ -161,6 +161,48 @@ public interface Constants {
 
 	}
 
+    public interface SLOTS{
+        String SLOT_A = "A";
+        String SLOT_B = "B";
+        String SLOT_C = "C";
+        String SLOT_D = "D";
+        String SLOT_E = "E";
+        String SLOT_F = "F";
+        String SLOT_D_PLUS = "D+";
+        String SLOT_MINUS_A = "-A";
+        String SLOT_A_MINUS = "A-";
+    }
+
+    public interface TIME{
+        String TIME_1 = "060000";
+        String TIME_2 = "080000";
+        String TIME_3 = "100000";
+        String TIME_4 = "120000";
+        String TIME_5 = "140000";
+        String TIME_6 = "160000";
+        String TIME_7 = "180000";
+        String TIME_8 = "000000";
+    }
+
+    public interface TIME_IN_INT{
+        int TIME_1 = 60000;
+        int TIME_2 = 80000;
+        int TIME_3 = 100000;
+        int TIME_4 = 120000;
+        int TIME_5 = 140000;
+        int TIME_6 = 160000;
+        int TIME_7 = 180000;
+        int TIME_8 = 0;
+    }
+
+    public interface PLANETS {
+        String TRIVANDRUM = "TVM_PP_CLC";
+        String CHENNAI = "CHN_ILP";
+        String HYDERABAD = "HYD_QCITY";
+        String GUWAHATI = "GHT_ILP_IIT_GUWAHATI";
+        String AHMEDABAD = "AHMEDABAD";
+    }
+
 	public interface LOCATIONS {
 		/**
 		 * types of locations

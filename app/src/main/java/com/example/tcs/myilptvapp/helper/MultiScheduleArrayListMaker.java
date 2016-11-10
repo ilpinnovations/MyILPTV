@@ -138,7 +138,7 @@ public class MultiScheduleArrayListMaker {
         params.put(Constants.NETWORK_PARAMS.SCHEDULE_LOCATION.DATE, date);
         params.put(Constants.NETWORK_PARAMS.SCHEDULE_LOCATION.SLOT, slot);
 
-        Log.i(TAG, "Date: " + date);
+//        Log.i(TAG, "Date: " + date);
         String url = new StringBuilder(
                 Constants.NETWORK_PARAMS.SCHEDULE_LOCATION.URL).append(
                 Util.getUrlEncodedString(params)).toString();
@@ -153,7 +153,7 @@ public class MultiScheduleArrayListMaker {
         params.put(Constants.NETWORK_PARAMS.BATCHES.LOCATION, location);
         params.put(Constants.NETWORK_PARAMS.BATCHES.DATE, date);
 
-        Log.i(TAG, "Date: " + date);
+//        Log.i(TAG, "Date: " + date);
         String url = new StringBuilder(
                 Constants.NETWORK_PARAMS.BATCHES.URL).append(
                 Util.getUrlEncodedString(params)).toString();
@@ -189,7 +189,7 @@ public class MultiScheduleArrayListMaker {
                                 Schedule s;
 
                                 int row = Util.getRowNumber(i, SPAN_COUNT);
-                                Log.i(TAG, "ROW: " + row);
+//                                Log.i(TAG, "ROW: " + row);
                                 Schedule batch = batches.get(row);
 
                                 if (i%SPAN_COUNT == 0){
