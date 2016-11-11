@@ -1,5 +1,6 @@
 package com.example.tcs.myilptvapp.adapter;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
@@ -26,9 +27,10 @@ public class MultiScheduleAdapterTemp extends RecyclerView.Adapter<MultiSchedule
     private final static String TAG = ScheduleAdapter.class.getSimpleName();
     private final static int SPAN_COUNT = 4;
 
-    public class CustomViewHolder extends RecyclerView.ViewHolder{
+    public class CustomViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         public TextView course, faculty, batchView;
+//        private ArrayList<Schedule> scheduleList;
 
         public CustomViewHolder(View itemView) {
             super(itemView);
@@ -36,6 +38,30 @@ public class MultiScheduleAdapterTemp extends RecyclerView.Adapter<MultiSchedule
             course = (TextView) itemView.findViewById(R.id.schedule_card_course);
             faculty = (TextView) itemView.findViewById(R.id.schedule_card_faculty);
             batchView = (TextView) itemView.findViewById(R.id.schedule_card_no_schedule);
+
+            itemView.setOnClickListener(this);
+
+//            this.scheduleList = schedule;
+        }
+
+        @Override
+        public void onClick(View view) {
+            int position = getLayoutPosition();
+            Schedule schedule = schedulesList.get(position);
+            if (position%SPAN_COUNT != 0 && !schedule.getCourse().equalsIgnoreCase("No Schedule")){
+
+                String alertMessage = "Batch: " + schedule.getBatch()
+                        + "\nTitle: " + schedule.getCourse()
+                        + "\nFaculty: " + schedule.getFaculty()
+                        + "\nSlot: " + schedule.getSlot()
+                        + "\nRoom: " + schedule.getRoom();
+
+                AlertDialog.Builder alert = new AlertDialog.Builder(mContext);
+                alert.setTitle("Schedule");
+                alert.setMessage(alertMessage);
+                alert.setPositiveButton("OK",null);
+                alert.show();
+            }
         }
     }
 

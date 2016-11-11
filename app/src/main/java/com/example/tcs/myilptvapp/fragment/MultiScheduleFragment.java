@@ -85,10 +85,6 @@ public class MultiScheduleFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        messageReceiver = new ScheduleReceiver();
-        IntentFilter messageFilter = new IntentFilter("com.example.tcs.myilptvapp.INTENT_SCHEDULE");
-        getActivity().registerReceiver(messageReceiver, messageFilter);
-
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_multi_schedule, container, false);
 
@@ -192,9 +188,28 @@ public class MultiScheduleFragment extends Fragment {
 
         adapter.notifyDataSetChanged();
 
+        // Register the local broadcast receiver
+//        IntentFilter messageFilter = new IntentFilter();
+//        messageFilter.addAction(null);
+//        LocalBroadcastManager.getInstance(getActivity()).registerReceiver(messageReceiver, messageFilter);
+//        getActivity().registerReceiver(messageReceiver, messageFilter);
+
+        return rootView;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        Log.i(TAG, "onRegisterReceiver");
+        messageReceiver = new ScheduleReceiver();
+        IntentFilter messageFilter = new IntentFilter("com.example.tcs.myilptvapp.INTENT_SCHEDULE");
+        getActivity().registerReceiver(messageReceiver, messageFilter);
+
         Calendar cur_cal = Calendar.getInstance();
         cur_cal.setTimeInMillis(System.currentTimeMillis());//set the current time and date for this calendar
 
+        String curTime = new SimpleDateFormat("HHmmss", Locale.US).format(new Date());
         int hour = SlotCalculator.getNextSlotHour(curTime);
         Log.i(TAG, "Hour: " + hour);
         Log.i(TAG, "Day of year: " + cur_cal.get(Calendar.DAY_OF_YEAR));
@@ -203,8 +218,8 @@ public class MultiScheduleFragment extends Fragment {
 
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.DAY_OF_YEAR, cur_cal.get(Calendar.DAY_OF_YEAR));
-        cal.set(Calendar.HOUR_OF_DAY, hour);
-        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.HOUR_OF_DAY, 11);
+        cal.set(Calendar.MINUTE, 29);
         cal.set(Calendar.SECOND, 0);
         cal.set(Calendar.MILLISECOND, cur_cal.get(Calendar.MILLISECOND));
         cal.set(Calendar.DATE, cur_cal.get(Calendar.DATE));
@@ -217,20 +232,16 @@ public class MultiScheduleFragment extends Fragment {
         PendingIntent pintent = PendingIntent.getBroadcast(getActivity(), 0, intent, 0);
 
         AlarmManager alarm = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
-        alarm.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), SLOT_TIME_DIFF_IN_MILLIS, pintent);
-
-        // Register the local broadcast receiver
-//        IntentFilter messageFilter = new IntentFilter();
-//        messageFilter.addAction(null);
-//        LocalBroadcastManager.getInstance(getActivity()).registerReceiver(messageReceiver, messageFilter);
-//        getActivity().registerReceiver(messageReceiver, messageFilter);
-
-        return rootView;
+        Log.i(TAG, "CAL: " + cal.getTime());
+        alarm.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + 2000,20000, pintent);
     }
 
     @Override
     public void onPause() {
         super.onPause();
+        newtimer.cancel();
+
+        Log.i(TAG, "onUnregisterReceiver");
         getActivity().unregisterReceiver(messageReceiver);
     }
 
@@ -238,7 +249,7 @@ public class MultiScheduleFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
 
-        newtimer.cancel();
+
 //        ((MainActivity)getActivity()).clearBackStackInclusive("tag"); // tag (addToBackStack tag) should be the same which was used while transacting the F2 fragment
     }
 
