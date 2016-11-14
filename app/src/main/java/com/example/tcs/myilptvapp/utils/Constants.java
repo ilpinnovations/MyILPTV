@@ -185,15 +185,38 @@ public interface Constants {
     }
 
     public interface TIME_IN_INT{
-        int TIME_1 = 60000;
-        int TIME_2 = 80000;
-        int TIME_3 = 100000;
-        int TIME_4 = 120000;
-        int TIME_5 = 140000;
-        int TIME_6 = 160000;
-        int TIME_7 = 180000;
-        int TIME_8 = 0;
-    }
+		int TIME_1 = 60000;
+		int TIME_2 = 80000;
+		int TIME_3 = 100000;
+		int TIME_4 = 120000;
+		int TIME_5 = 140000;
+		int TIME_6 = 160000;
+		int TIME_7 = 180000;
+		int TIME_8 = 0;
+	}
+
+	public interface SLOT_HOUR{
+		int HOUR_1 = 6;
+		int HOUR_2 = 8;
+		int HOUR_3 = 10;
+		int HOUR_4 = 12;
+		int HOUR_5 = 14;
+		int HOUR_6 = 16;
+		int HOUR_7 = 18;
+		int HOUR_8 = 0;
+	}
+
+	public interface TIME_STANDARD_MILLIS{
+		long ONE_SECOND = 1000;
+		long ONE_MINUTE = 60 * ONE_SECOND;
+		long ONE_HOUR = 60 * ONE_MINUTE;
+	}
+
+	public interface TIME_STANDARD{
+		int ONE_SECOND = 1;
+		int ONE_MINUTE = 60 * ONE_SECOND;
+		int ONE_HOUR = 60 * ONE_MINUTE;
+	}
 
     public interface PLANETS {
         String TRIVANDRUM = "TVM_PP_CLC";

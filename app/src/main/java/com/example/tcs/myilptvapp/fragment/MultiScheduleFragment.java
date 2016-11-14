@@ -64,10 +64,7 @@ public class MultiScheduleFragment extends Fragment {
     private String dateForUrl;
     private String dateForView;
 
-    private static final long ONE_SECOND = 1000;
-    private static final long ONE_MINUTE = 60 * ONE_SECOND;
-    private static final long ONE_HOUR = 60 * ONE_MINUTE;
-    private static final long SLOT_TIME_DIFF_IN_MILLIS = 2 * ONE_HOUR;
+    private static final long SLOT_TIME_DIFF_IN_MILLIS = 2 * Constants.TIME_STANDARD_MILLIS.ONE_HOUR;
 
     ScheduleReceiver messageReceiver;
 
@@ -188,19 +185,6 @@ public class MultiScheduleFragment extends Fragment {
 
         adapter.notifyDataSetChanged();
 
-        // Register the local broadcast receiver
-//        IntentFilter messageFilter = new IntentFilter();
-//        messageFilter.addAction(null);
-//        LocalBroadcastManager.getInstance(getActivity()).registerReceiver(messageReceiver, messageFilter);
-//        getActivity().registerReceiver(messageReceiver, messageFilter);
-
-        return rootView;
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
         Log.i(TAG, "onRegisterReceiver");
         messageReceiver = new ScheduleReceiver();
         IntentFilter messageFilter = new IntentFilter("com.example.tcs.myilptvapp.INTENT_SCHEDULE");
@@ -209,21 +193,21 @@ public class MultiScheduleFragment extends Fragment {
         Calendar cur_cal = Calendar.getInstance();
         cur_cal.setTimeInMillis(System.currentTimeMillis());//set the current time and date for this calendar
 
-        String curTime = new SimpleDateFormat("HHmmss", Locale.US).format(new Date());
-        int hour = SlotCalculator.getNextSlotHour(curTime);
-        Log.i(TAG, "Hour: " + hour);
-        Log.i(TAG, "Day of year: " + cur_cal.get(Calendar.DAY_OF_YEAR));
-        Log.i(TAG, "Date: " + cur_cal.get(Calendar.DATE));
-        Log.i(TAG, "Month: " + cur_cal.get(Calendar.MONTH));
-
-        Calendar cal = Calendar.getInstance();
-        cal.add(Calendar.DAY_OF_YEAR, cur_cal.get(Calendar.DAY_OF_YEAR));
-        cal.set(Calendar.HOUR_OF_DAY, 11);
-        cal.set(Calendar.MINUTE, 29);
-        cal.set(Calendar.SECOND, 0);
-        cal.set(Calendar.MILLISECOND, cur_cal.get(Calendar.MILLISECOND));
-        cal.set(Calendar.DATE, cur_cal.get(Calendar.DATE));
-        cal.set(Calendar.MONTH, cur_cal.get(Calendar.MONTH));
+//        String curTime = new SimpleDateFormat("HHmmss", Locale.US).format(new Date());
+//        int hour = SlotCalculator.getNextSlotHour(curTime);
+//        Log.i(TAG, "Hour: " + hour);
+//        Log.i(TAG, "Day of year: " + cur_cal.get(Calendar.DAY_OF_YEAR));
+//        Log.i(TAG, "Date: " + cur_cal.get(Calendar.DATE));
+//        Log.i(TAG, "Month: " + cur_cal.get(Calendar.MONTH));
+//
+//        Calendar cal = Calendar.getInstance();
+//        cal.add(Calendar.DAY_OF_YEAR, cur_cal.get(Calendar.DAY_OF_YEAR));
+//        cal.set(Calendar.HOUR_OF_DAY, 11);
+//        cal.set(Calendar.MINUTE, 29);
+//        cal.set(Calendar.SECOND, 0);
+//        cal.set(Calendar.MILLISECOND, cur_cal.get(Calendar.MILLISECOND));
+//        cal.set(Calendar.DATE, cur_cal.get(Calendar.DATE));
+//        cal.set(Calendar.MONTH, cur_cal.get(Calendar.MONTH));
 
         Intent intent = new Intent();
         intent.setAction("com.example.tcs.myilptvapp.INTENT_SCHEDULE");
@@ -232,8 +216,18 @@ public class MultiScheduleFragment extends Fragment {
         PendingIntent pintent = PendingIntent.getBroadcast(getActivity(), 0, intent, 0);
 
         AlarmManager alarm = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
-        Log.i(TAG, "CAL: " + cal.getTime());
-        alarm.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + 2000,20000, pintent);
+        Log.i(TAG, "CAL: " + cur_cal.getTime());
+
+        long nextSlotDiff = SlotCalculator.getSlotRemainingTime(cur_cal.get(Calendar.HOUR), cur_cal.get(Calendar.MINUTE), cur_cal.get(Calendar.SECOND));
+        Log.i(TAG, "nextSlotDiff: " + nextSlotDiff);
+        alarm.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + nextSlotDiff, SLOT_TIME_DIFF_IN_MILLIS, pintent);
+
+        return rootView;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
     }
 
     @Override
@@ -299,9 +293,9 @@ public class MultiScheduleFragment extends Fragment {
             String slot2 = slots.get(1);
             String slot3 = slots.get(2);
 
-            slotView1.setText(slot1);
-            slotView2.setText(slot2);
-            slotView3.setText(slot3);
+            slotView1.setText("Slot" + slot1);
+            slotView2.setText("Slot" + slot2);
+            slotView3.setText("Slot" + slot3);
 
             MultiScheduleArrayListMaker maker = new MultiScheduleArrayListMaker(getActivity(), location, date, slot1, slot2, slot3, new MultiScheduleArrayListMaker.AsyncResponse() {
                 @Override
@@ -316,23 +310,4 @@ public class MultiScheduleFragment extends Fragment {
         }
     }
 
-
-    public void prepareSchedule() {
-        for (int i = 0, j = 7; i < REC_VIEW_MAX_POS; i++, j += 2) {
-            batches.add("TMFAO15" + j);
-        }
-
-        for (int i = 0, j = 7; i < REC_VIEW_MAX_POS; i++, j += 2) {
-            scheduleSlot1.add(new Schedule("Lecture:adlkhfaslkjdfk " + (i + 1), "Reshmi", "Slot: " + j, "Room A" + j + " " + j + 40, "2016-11-07", "TMFAO15" + j, null));
-        }
-        for (int i = 0, j = 7; i < REC_VIEW_MAX_POS; i++, j += 2) {
-            scheduleSlot2.add(new Schedule("Lecture:adlkhfaslkjdfk " + (i + 1), "Reshmi", "Slot: " + j, "Room A" + j + " " + j + 40, "2016-11-07", "TMFAO15" + j, null));
-        }
-        for (int i = 0, j = 7; i < REC_VIEW_MAX_POS; i++, j += 2) {
-            scheduleSlot3.add(new Schedule("Lecture:adlkhfaslkjdfk " + (i + 1), "Reshmi", "Slot: " + j, "Room A" + j + " " + j + 40, "2016-11-07", "TMFAO15" + j, null));
-        }
-
-        adapter.notifyDataSetChanged();
-        Log.d(TAG, "prepareSchedule");
-    }
 }
