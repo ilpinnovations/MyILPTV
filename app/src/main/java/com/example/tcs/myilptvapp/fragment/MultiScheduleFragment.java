@@ -100,7 +100,22 @@ public class MultiScheduleFragment extends Fragment {
 
             public void onTick(long millisUntilFinished) {
                 Calendar c = Calendar.getInstance();
-                timeView.setText(c.get(Calendar.HOUR)+":"+c.get(Calendar.MINUTE)+":"+c.get(Calendar.SECOND)+"  "+(c.get(Calendar.AM_PM)==0?"AM":"PM"));
+                String hour = String.valueOf(c.get(Calendar.HOUR));
+                String minute = String.valueOf(c.get(Calendar.MINUTE));
+                String second = String.valueOf(c.get(Calendar.SECOND));
+
+                if (hour.length() == 1){
+                    hour = "0" + hour;
+                }
+
+                if (minute.length() == 1){
+                    minute = "0" + minute;
+                }
+
+                if (second.length() == 1){
+                    second = "0" + second;
+                }
+                timeView.setText(hour+":"+minute+":"+second+"  "+(c.get(Calendar.AM_PM)==0?"AM":"PM"));
             }
             public void onFinish() {
 

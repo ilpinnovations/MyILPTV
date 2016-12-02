@@ -1,5 +1,8 @@
 package com.example.tcs.myilptvapp.utils;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.util.Log;
 
 import java.net.URLEncoder;
@@ -51,5 +54,14 @@ public class Util {
         }
 
         return row;
+    }
+
+    public static boolean hasInternetAccess(Context applicationContext) {
+        ConnectivityManager connectivityManager = (ConnectivityManager) applicationContext
+                .getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager
+                .getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+
     }
 }
